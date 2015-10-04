@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 import asyncio
-from sys import stdin, exit, argv
+from sys import stdin, exit
 
 class tcpclient:
   def __init__(self, reader, writer):
@@ -28,7 +28,7 @@ def chat_send(socket):
   yield from asyncio.get_event_loop().connect_read_pipe(lambda: asyncio.StreamReaderProtocol(reader), stdin)
   while True:
     msg = (yield from reader.readline()).decode('utf-8').strip('\r\n')
-    if msg == "quit": exit()
+    if msg == "quit": exit() #Type 'quit' to exit the program
     yield from socket.send(msg)
 
 @asyncio.coroutine
