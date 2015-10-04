@@ -38,14 +38,10 @@ def chat(loop,host,port):
   tasks = [chat_recv(client), chat_send(client)]
   yield from asyncio.wait(tasks)
 
-#if len(argv) > 1: host = argv[1]
-#else: host = '127.0.0.1'
-#if len(argv) > 2: port = int(argv[2])
-#else: port = 8888
 parser = ArgumentParser(description='Chat Client Python3 Script')
-parser.add_argument('--host', dest='host', type=str, help='Host IP Address', default='127.0.0.1')
-parser.add_argument('--port', dest='port', type=int, help='Host Port Number', default=8888)
+parser.add_argument('-i', dest='ip', type=str, help='Host IP Address - Optional [Default=127.0.0.1]', default='127.0.0.1')
+parser.add_argument('-p', dest='port', type=int, help='Host Port Number - Optional [Default=8888]', default=8888)
 args = parser.parse_args()
 loop = asyncio.get_event_loop()
-loop.run_until_complete(chat(loop,args.host,args.port))
+loop.run_until_complete(chat(loop,args.ip,args.port))
 loop.close()
